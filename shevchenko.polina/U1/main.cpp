@@ -4,7 +4,7 @@
 
 int main(int argc, char* argv[]) {
   using namespace shevchenko;
-  
+
   if (argc > 3) {
     std::cerr << "invalid arguments\n";
     return 0;
