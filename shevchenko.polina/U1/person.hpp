@@ -23,12 +23,13 @@ bool read_person(std::istream& in, Person& p) {
     return false;
   }
 
+  p.id = 0;
+  p.info.clear();
+
   size_t pos = 0;
-  while (pos < line.size() && std::isspace(line[pos])) {
-    ++pos;
-  }
+  while (pos < line.size() && std::isspace(line[pos])) ++pos;
   if (pos >= line.size()) {
-    return false;
+    return true;
   }
 
   size_t id = 0;
@@ -37,14 +38,13 @@ bool read_person(std::istream& in, Person& p) {
     ++pos;
   }
   if (pos == 0) {
-    return false;
+    return true;
   }
 
-  while (pos < line.size() && std::isspace(line[pos])) {
-    ++pos;
-  }
+  while (pos < line.size() && std::isspace(line[pos])) ++pos;
   if (pos >= line.size()) {
-    return false;
+    p.id = id;
+    return true;
   }
 
   p.id = id;
