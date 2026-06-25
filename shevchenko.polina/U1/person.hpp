@@ -11,6 +11,7 @@ namespace shevchenko {
 struct Person {
   size_t id;
   std::string info;
+  bool valid;
 };
 
 void print_person(const Person& p, std::ostream& out) {
@@ -25,11 +26,10 @@ bool read_person(std::istream& in, Person& p) {
 
   p.id = 0;
   p.info.clear();
+  p.valid = false;
 
   size_t pos = 0;
-  while (pos < line.size() && std::isspace(line[pos])) {
-    ++pos;
-  }
+  while (pos < line.size() && std::isspace(line[pos])) ++pos;
   if (pos >= line.size()) {
     return true;
   }
@@ -46,20 +46,22 @@ bool read_person(std::istream& in, Person& p) {
     return true;
   }
 
-  while (pos < line.size() && std::isspace(line[pos])) {
-    ++pos;
-  }
+  while (pos < line.size() && std::isspace(line[pos])) ++pos;
+
+  p.id = id;
 
   if (pos >= line.size()) {
-    p.id = id;
     return true;
   }
 
-  p.id = id;
   p.info = line.substr(pos);
 
   while (!p.info.empty() && std::isspace(p.info.back())) {
     p.info.pop_back();
+  }
+
+  if (!p.info.empty()) {
+    p.valid = true;
   }
 
   return true;
