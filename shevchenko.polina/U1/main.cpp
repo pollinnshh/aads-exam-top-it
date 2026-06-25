@@ -9,7 +9,7 @@ int main(int argc, char* argv[]) {
 
   if (!parse_args(argc, argv, in_file, out_file)) {
     std::cerr << "invalid arguments\n";
-    return 1;
+    return 0;
   }
 
   std::ifstream in_file_stream;
@@ -31,6 +31,7 @@ int main(int argc, char* argv[]) {
   Person p;
   while (read_person(*in, p)) {
     if (p.id == 0 && p.info.empty()) {
+      ++ignored_count;
       continue;
     }
     if (p.info.empty()) {
