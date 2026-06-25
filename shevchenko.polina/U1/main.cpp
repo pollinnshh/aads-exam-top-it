@@ -4,6 +4,11 @@
 
 int main(int argc, char* argv[]) {
   using namespace shevchenko;
+  
+  if (argc > 3) {
+    std::cerr << "invalid arguments\n";
+    return 0;
+  }
 
   std::string in_file, out_file;
 
@@ -31,7 +36,6 @@ int main(int argc, char* argv[]) {
   Person p;
   while (read_person(*in, p)) {
     if (p.id == 0 && p.info.empty()) {
-      ++ignored_count;
       continue;
     }
     if (p.info.empty()) {
@@ -65,7 +69,9 @@ int main(int argc, char* argv[]) {
     print_person(order[i], *out);
   }
 
-  std::cerr << success_count << " " << ignored_count << "\n";
+  if (success_count > 0 || ignored_count > 0) {
+    std::cerr << success_count << " " << ignored_count << "\n";
+  }
 
   return 0;
 }
