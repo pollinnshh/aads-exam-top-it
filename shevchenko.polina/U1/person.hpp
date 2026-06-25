@@ -27,21 +27,29 @@ bool read_person(std::istream& in, Person& p) {
   p.info.clear();
 
   size_t pos = 0;
-  while (pos < line.size() && std::isspace(line[pos])) ++pos;
+  while (pos < line.size() && std::isspace(line[pos])) {
+    ++pos;
+  }
   if (pos >= line.size()) {
     return true;
   }
 
   size_t id = 0;
+  bool has_digit = false;
   while (pos < line.size() && std::isdigit(line[pos])) {
     id = id * 10 + (line[pos] - '0');
     ++pos;
+    has_digit = true;
   }
-  if (pos == 0) {
+
+  if (!has_digit) {
     return true;
   }
 
-  while (pos < line.size() && std::isspace(line[pos])) ++pos;
+  while (pos < line.size() && std::isspace(line[pos])) {
+    ++pos;
+  }
+
   if (pos >= line.size()) {
     p.id = id;
     return true;
@@ -49,6 +57,7 @@ bool read_person(std::istream& in, Person& p) {
 
   p.id = id;
   p.info = line.substr(pos);
+
   while (!p.info.empty() && std::isspace(p.info.back())) {
     p.info.pop_back();
   }

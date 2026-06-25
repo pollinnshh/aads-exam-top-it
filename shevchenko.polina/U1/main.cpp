@@ -14,7 +14,7 @@ int main(int argc, char* argv[]) {
 
   if (!parse_args(argc, argv, in_file, out_file)) {
     std::cerr << "invalid arguments\n";
-    return 0;
+    return 1;
   }
 
   std::ifstream in_file_stream;
