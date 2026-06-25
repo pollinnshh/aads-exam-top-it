@@ -1,4 +1,5 @@
 #include "person.hpp"
+#include "array.hpp"
 #include <fstream>
 
 int main(int argc, char* argv[]) {
@@ -34,6 +35,7 @@ int main(int argc, char* argv[]) {
   }
 
   BST<Person> persons;
+  Array<Person> order;
   size_t success_count = 0;
   size_t ignored_count = 0;
 
@@ -48,10 +50,14 @@ int main(int argc, char* argv[]) {
       continue;
     }
     persons.insert(p);
+    order.push_back(p);
     ++success_count;
   }
 
-  persons.print(*out, print_person_func);
+  for (size_t i = 0; i < order.size(); ++i) {
+    print_person(order[i], *out);
+  }
+
   std::cerr << success_count << " " << ignored_count << "\n";
 
   return 0;

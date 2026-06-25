@@ -79,6 +79,6 @@ bool parse_args(int argc,
   return true;
 }
 
-} // namespace shevchenko
+}
 
 #endif
